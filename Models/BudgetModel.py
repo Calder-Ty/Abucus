@@ -26,5 +26,42 @@ class Paycheck(object):
 
 
 
+class ExpenseItem(object):
+    """
+    Holds the Data Regarding an Expense item in a budget
+    """
+
+    def __init__(self, name, parent, ammount = None, percIncome = None,
+                 maximum = None):
+
+        self.name = name
+        self.parent = parent
+        if ammount != None:
+            pass
+        elif percIncome != None:
+            pass
+        else:
+            raise ValueError("Ammount or precent of Income must be specified")
+        
+        self.maximum = maximum
+
+
+class SavingsItem(object):
+    """
+    Holds the data regarding a savings item in a budget
+    """
+
+    def __ini__(self, name, parent, ammount = None, percIncome = None):
+
+        self.name = name
+        self.parent = parent
+        if ammount != None:
+            pass
+        elif percIncome != None:
+            pass
+        else:
+            raise ValueError("Ammount or Percent of Income must be specified")
+    
+
         
                 
