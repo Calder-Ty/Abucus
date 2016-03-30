@@ -125,8 +125,21 @@ class Budget(object):
 
             
     def update(self):
-        # TODO: Update calculations 
-        pass
+        # TODO: Update calculations
+        # Possibly push part of these out to the seperate methods
+        self.gross = 0
+        self.net = 0
+        for i in self.paychecks:
+            self.gross += self.paychecks[i].gross
+            self.net += self.paychecks[i].net
+
+        self.disposable = self.net
+        for i in self.expenses:
+            self.disposable -= self.expenses[i].ammount
+
+        for i in self.savings:
+            self.disposable -= self.savings[i].ammount
+        
     
 
         
