@@ -8,6 +8,9 @@ from decimal import Decimal
 logging.basicConfig(filename='../abucus.log',level = logging.DEBUG)
 
 
+# TODO: Add a Delete Method to all Classes
+#       
+
 class Paycheck(object):
     """
     Object for Holding Data Regarding a Paycheck
@@ -26,6 +29,7 @@ class Paycheck(object):
 
         self.tax = self.gross * tax
         self.net = self.gross - self.tax
+
 
 
 
@@ -126,8 +130,7 @@ class Budget(object):
 
             
     def update(self):
-        # TODO: Update calculations
-        # Possibly push part of these out to the seperate methods
+        # TODO: Update calculations Possibly push part of these out to the seperate methods
         self.gross = 0
         self.net = 0
         for i in self.paychecks:
@@ -140,6 +143,23 @@ class Budget(object):
 
         for i in self.savings:
             self.disposable -= self.savings[i].ammount
+
+
+    def remove(self, Obj):
+        name = Obj.name
+        if type(Obj) is BudgetModel.Paycheck:
+            del self.paychecks[name]
+        
+        elif type(Obj) is BudgetModel.ExpenseItem:
+            del self.expenses[name]
+        
+        elif type(Obj) is BudgetModel.SavingsItem:
+            del self.savings[name]
+
+        else:
+            logger.debug(" %s type is undefined for the Remove method", %(obj))
+        
+        
         
     
 
