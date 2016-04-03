@@ -1,5 +1,6 @@
 """
-Module for the Budget Model
+Module for the Budget Model, contains the classes: Paycheck, ExpenseItem,
+SavingsItem, and budget
 """
 import logging
 from decimal import Decimal
@@ -13,11 +14,11 @@ class Paycheck(object):
     """
 
     def __init__(self, Type, tax, name, hours = None,
-                 wage = None, salary = None):
+                 wage = None, numWeeks = 4, salary = None):
 
         self.name = name
         if Type == 'Hourly':
-            self.gross = hours * wage
+            self.gross = hours * wage * numWeeks
         elif Type == 'Salary':
             self.gross = salary
         else:
