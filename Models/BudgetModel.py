@@ -102,25 +102,29 @@ class Budget(object):
         self.net = 0
         self.disposable = 0
 
-    def addPaycheck(self, *args, **kwargs):
+    def addPaycheck(self, Type, tax, name, hours = None,
+                 wage = None, numWeeks = 4, salary = None):
 
-        paycheck = Paycheck(*args, **kwargs)
+        paycheck = Paycheck(Type, tax, name, hours = None,
+                 wage = None, numWeeks = 4, salary = None)
         self.paychecks[paycheck.name] = paycheck
         self.update()
 
-    def addExpense(self, *args, **kwargs):
+    def addExpense(self,  name, parent, ammount = None,
+                 percIncome = None, maximum = None):
         
         if len(self.paychecks) >= 0:
-            expense = ExpenseItem(*args, **kwargs)
+            expense = ExpenseItem( name, parent, ammount = None,
+                 percIncome = None, maximum = None)
             self.expenses[expense.name] = expense
             self.update()
         else:
             logger.debug("Attempt to add expense when no income specified")
 
-    def addSavings(self, *args, **kwargs):
+    def addSavings(self, name, parent, ammount = None, percIncome = None):
         
         if len(self.paychecks) >= 0:
-            saving = SavingsItem(*args, **kwargs)
+            saving = SavingsItem(name, parent, ammount = None, percIncome = None)
             self.savings[saving.name] = saving
             self.update()
         else:
