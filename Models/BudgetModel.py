@@ -91,7 +91,7 @@ class SavingsItem(object):
             self.percIncome = deci.Decimal(percIncome)
             self.amount = parent.gross * self.percIncome
 
-        else:
+        else:   
             raise ValueError("Ammount or precent of Income must be specified")
 
 
@@ -113,8 +113,8 @@ class Budget(object):
     def addPaycheck(self, Type, tax, name, hours = None,
                  wage = None, numWeeks = 4, salary = None):
 
-        paycheck = Paycheck(Type, tax, name, hours = None,
-                 wage = None, numWeeks = 4, salary = None)
+        paycheck = Paycheck(Type, tax, name, hours = hours,
+                 wage = wage, numWeeks = numWeeks, salary = salary)
         self.paychecks[paycheck.name] = paycheck
         self.update()
 
@@ -122,8 +122,8 @@ class Budget(object):
                  percIncome = None, maximum = None):
         
         if len(self.paychecks) >= 0:
-            expense = ExpenseItem( name, parent, ammount = None,
-                 percIncome = None, maximum = None)
+            expense = ExpenseItem( name, parent, ammount = ammount,
+                 percIncome = percIncome, maximum = maximum)
             self.expenses[expense.name] = expense
             self.update()
         else:
@@ -132,7 +132,7 @@ class Budget(object):
     def addSavings(self, name, parent, ammount = None, percIncome = None):
         
         if len(self.paychecks) >= 0:
-            saving = SavingsItem(name, parent, ammount = None, percIncome = None)
+            saving = SavingsItem(name, parent, ammount = ammount, percIncome = percIncome)
             self.savings[saving.name] = saving
             self.update()
         else:
