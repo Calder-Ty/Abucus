@@ -3,7 +3,7 @@ Module for the Budget Model, contains the classes: Paycheck, ExpenseItem,
 SavingsItem, and budget
 """
 import logging
-from decimal import Decimal
+import decimal as deci
 # Generate Logging file
 logging.basicConfig(filename='../abucus.log',level = logging.DEBUG)
 
@@ -17,10 +17,17 @@ class Paycheck(object):
     def __init__(self, Type, tax, name, hours = None,
                  wage = None, numWeeks = 4, salary = None):
 
+
+        # Convert the float values to Decimal Values
+        tax = deci.Decimal(tax)
+        numWeeks = deci.Decimal(numWeeks)
         self.name = name
         if Type == 'Hourly':
+            hours = deci.Decimal(hours)
+            wage = deci.Decimal(wage)
             self.gross = hours * wage * numWeeks
         elif Type == 'Salary':
+            salary = deci.Decimal(salary)
             self.gross = salary
         else:
             raise ValueError("Type must be Salary or Hourly")
@@ -42,14 +49,15 @@ class ExpenseItem(object):
         self.name = name
         self.parent = parent
         
+        # Convert Floats to Decimal Values
         if ammount != None:
-            
+            ammount = deci.Decimal(ammount)
             # Calculate the percentage of income by ammount spend
             self.ammount = ammount
             self.percIncome = ammount / parent.gross
             
         elif percIncome != None:
-            
+            percIncome = deci.Decimal(percIncome)
             # Calculate Ammount by Percentage of income
             self.percIncome = percIncome
             self.ammount = parent.gross * self.percIncome
@@ -57,7 +65,7 @@ class ExpenseItem(object):
         else:
             raise ValueError("Ammount or precent of Income must be specified")
         
-        self.maximum = maximum
+        self.maximum =deci.Decimal(maximum)
 
 
 
@@ -74,13 +82,13 @@ class SavingsItem(object):
         if ammount != None:
             
             # Calculate the percentage of income by ammount spend
-            self.ammount = ammount
-            self.percIncome = ammount / parent.gross
+            self.ammount = deci.Decimal(ammount)
+            self.percIncome = self.ammount / parent.gross
             
         elif percIncome != None:
             
             # Calculate Ammount by Percentage of income
-            self.percIncome = percIncome
+            self.percIncome = deci.Decimal(percIncome)
             self.amount = parent.gross * self.percIncome
 
         else:
