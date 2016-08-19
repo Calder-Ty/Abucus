@@ -54,7 +54,7 @@ class ExpenseItem(object):
             ammount = deci.Decimal(ammount)
             # Calculate the percentage of income by ammount spend
             self.ammount = ammount
-            self.percIncome = ammount / parent.gross
+            self.percIncome = deci.Decimal(ammount) / parent.gross
             
         elif percIncome != None:
             percIncome = deci.Decimal(percIncome)
@@ -153,6 +153,10 @@ class Budget(object):
 
         for i in self.savings:
             self.disposable -= self.savings[i].ammount
+
+        self.net = round(self.net, ndigits = 2)
+        self.gross = round(self.gross, ndigits = 2)
+        self.disposable = round(self.disposable, ndigits = 2)
 
 
     def remove(self, Obj):
