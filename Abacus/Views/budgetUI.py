@@ -1,11 +1,11 @@
 '''
-budgetUIController
+budgetUI
 '''
 import importlib.util
-from budgetUI import Ui_MainWindow
+import budgetWindow
 from PyQt4 import QtCore, QtGui
 
-class budgetUIController(budgetUI.Ui_MainWindow):
+class budgetUI(QtGui.QMainWindow):
     """
     Handles all the stuff to deal with the UI of the budget window
     """
@@ -13,7 +13,7 @@ class budgetUIController(budgetUI.Ui_MainWindow):
     def __init__(self):
         # Initialize the window
         QtGui.QMainWindow.__init__(self)
-        self.ui = Ui_MainWindow()
+        self.ui = budgetWindow.Ui_MainWindow()
         self.ui.setupUi(self)
 
         # Test Code just to see if i can get a table to work
@@ -28,6 +28,6 @@ class budgetUIController(budgetUI.Ui_MainWindow):
 if __name__ == '__main__':
     import sys
     app = QtGui.QApplication(sys.argv)
-    window = budgetUIController
+    window = budgetUI()
     window.show()
 
