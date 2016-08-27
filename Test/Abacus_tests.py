@@ -1,5 +1,15 @@
 from nose.tools import *
-import Abacus
+from Abacus.Models import BudgetModel
+import logging
+
+# Generate Logging file
+logging.basicConfig(filename='abucus.log',level = logging.DEBUG)
+
+def test_addPaycheck():
+    # Add Budget
+    budget = BudgetModel.Budget()
+    budget.ad
+
 
 def setup():
     print("Setup!")
