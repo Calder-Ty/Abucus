@@ -2,6 +2,7 @@
 Module for the Budget Model, contains the classes: Paycheck, ExpenseItem,
 SavingsItem, and budget
 """
+
 import logging
 import decimal as deci
 # Generate Logging file

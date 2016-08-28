@@ -16,7 +16,6 @@ def test_budget():
     assert_equal(budget.savings, {})
 
 def test_Paychecks():
-
     # Add Budget
     Emperitas = BudgetModel.Paycheck("Hourly", .10, "Emperitas", 40, 15)
     Army = BudgetModel.Paycheck("Salary", .10, "Army", salary = 4000)
@@ -24,14 +23,9 @@ def test_Paychecks():
     assert_equal(Emperitas.gross, decimal.Decimal(2400))
     assert_equal(Emperitas.tax, decimal.Decimal(240))
     assert_equal(Emperitas.net, decimal.Decimal(2160))
+    assert_equal(Army.gross(decimal.Decimal(4000)))
 
 
-def setup():
-    print("Setup!")
-
-def teardown():
-    print("Tear Down")
-
-def test_basic():
-    print("I Ran basic Test!")
-
+def test_Expense():
+    # Add Expense
+    pass
