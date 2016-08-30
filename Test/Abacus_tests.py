@@ -4,7 +4,7 @@ import decimal
 import logging
 
 # Generate Logging file
-logging.basicConfig(filename='abucus.log',level = logging.DEBUG)
+logging.basicConfig(filename='abucus.log', level = logging.DEBUG)
 
 def test_budget():
     budget = BudgetModel.Budget()
@@ -28,4 +28,16 @@ def test_Paychecks():
 
 def test_Expense():
     # Add Expense
-    pass
+    Groceries = BudgetModel.ExpenseItem("Groceries", ammount = 100);
+    Tithing = BudgetModel.ExpenseItem("Tithing", percIncome = .1);
+    assert_equal(Groceries.name, "Groceries");
+    assert_equal(Groceries.ammount, decimal.Decimal(100));
+    assert_equal(Tithing.percIncome, decimal.Decimal(.1));
+    assert_equal(Tithing.name, 'Tithing');
+
+def test_Saving():
+    House = BudgetModel.SavingsItem("House", ammount = 100);
+    Emergency = BudgetModel.SavingsItem("Emergency", percIncome = .01);
+    assert_equal(House.name, "House");
+    assert_equal(Emergency.percIncome, decimal.Decimal(.01));
+    sassert_equal(House.ammount, decimal.Decimal(100));
