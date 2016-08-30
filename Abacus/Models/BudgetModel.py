@@ -44,29 +44,28 @@ class ExpenseItem(object):
     Holds the Data Regarding an Expense item in a budget
     """
 
-    def __init__(self, name, parent, ammount = None,
+    def __init__(self, name, ammount = None,
                  percIncome = None, maximum = None):
 
         self.name = name
-        self.parent = parent
-        
+        self.maximum = deci.Decimal(maximum)
+        self.ammount = None
+        self.percIncome = None
+
         # Convert Floats to Decimal Values
         if ammount != None:
             ammount = deci.Decimal(ammount)
             # Calculate the percentage of income by ammount spend
             self.ammount = ammount
-            self.percIncome = deci.Decimal(ammount) / parent.gross
             
         elif percIncome != None:
             percIncome = deci.Decimal(percIncome)
             # Calculate Ammount by Percentage of income
             self.percIncome = percIncome
-            self.ammount = parent.gross * self.percIncome
 
         else:
             raise ValueError("Ammount or precent of Income must be specified")
         
-        self.maximum =deci.Decimal(maximum)
 
 
 
@@ -75,22 +74,21 @@ class SavingsItem(object):
     Holds the data regarding a savings item in a budget
     """
 
-    def __init__(self, name, parent, ammount = None, percIncome = None):
+    def __init__(self, name, ammount = None, percIncome = None):
 
         self.name = name
-        self.parent = parent
+        self.percIncome = None
+        self.ammount = None
         
         if ammount != None:
             
             # Calculate the percentage of income by ammount spend
             self.ammount = deci.Decimal(ammount)
-            self.percIncome = self.ammount / parent.gross
             
         elif percIncome != None:
             
             # Calculate Ammount by Percentage of income
             self.percIncome = deci.Decimal(percIncome)
-            self.amount = parent.gross * self.percIncome
 
         else:   
             raise ValueError("Ammount or precent of Income must be specified")
@@ -104,38 +102,46 @@ class Budget(object):
     """
 
     def __init__(self):
-        self.paychecks = {}
-        self.expenses = {}
-        self.savings = {}
-        self.gross = 0
-        self.net = 0
-        self.disposable = 0
+        self.paychecks = {};
+        self.expenses = {};
+        self.savings = {};
+        self.gross = 0;
+        self.net = 0;
+        self.disposable = 0;
 
     def addPaycheck(self, Type, tax, name, hours = None,
                  wage = None, numWeeks = 4, salary = None):
 
         paycheck = Paycheck(Type, tax, name, hours = hours,
-                 wage = wage, numWeeks = numWeeks, salary = salary)
-        self.paychecks[paycheck.name] = paycheck
-        self.update()
+                 wage = wage, numWeeks = numWeeks, salary = salary);
+        self.paychecks[paycheck.name] = paycheck;
+        self.update();
 
-    def addExpense(self,  name, parent, ammount = None,
+    def addExpense(self,  name, ammount = None,
                  percIncome = None, maximum = None):
         
         if len(self.paychecks) >= 0:
-            expense = ExpenseItem( name, parent, ammount = ammount,
-                 percIncome = percIncome, maximum = maximum)
-            self.expenses[expense.name] = expense
-            self.update()
+            expense = ExpenseItem( name, ammount = ammount,
+                 percIncome = percIncome, maximum = maximum);
+            if expense.percIncome is None:
+                expense.percIncome = expense.ammount / self.gross;
+            else:
+                expense.ammount = self.gross * expense.percIncome;
+            self.expenses[expense.name] = expense;
+            self.update();
         else:
-            logger.debug("Attempt to add expense when no income specified")
+            logger.debug("Attempt to add expense when no income specified");
 
-    def addSavings(self, name, parent, ammount = None, percIncome = None):
+    def addSavings(self, name, ammount = None, percIncome = None):
         
         if len(self.paychecks) >= 0:
-            saving = SavingsItem(name, parent, ammount = ammount, percIncome = percIncome)
-            self.savings[saving.name] = saving
-            self.update()
+            saving = SavingsItem(name, ammount = ammount, percIncome = percIncome);      
+            if saving.percIncome is None:
+                saving.percIncome = saving.ammount / self.gross;
+            else:
+                saving.ammount = self.gross * saving.percIncome;
+            self.savings[saving.name] = saving;
+            self.update();
         else:
             logger.debug("Attempt to add savings when no income specified")
 
