@@ -48,10 +48,12 @@ class ExpenseItem(object):
                  percIncome = None, maximum = None):
 
         self.name = name
-        self.maximum = deci.Decimal(maximum)
         self.ammount = None
         self.percIncome = None
-
+        if maximum is not None:
+            self.maximum = deci.Decimal(maximum)
+        else:
+            self.maximum = maximum
         # Convert Floats to Decimal Values
         if ammount != None:
             ammount = deci.Decimal(ammount)

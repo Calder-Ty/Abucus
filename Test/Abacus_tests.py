@@ -40,4 +40,4 @@ def test_Saving():
     Emergency = BudgetModel.SavingsItem("Emergency", percIncome = .01);
     assert_equal(House.name, "House");
     assert_equal(Emergency.percIncome, decimal.Decimal(.01));
-    sassert_equal(House.ammount, decimal.Decimal(100));
+    assert_equal(House.ammount, decimal.Decimal(100));
