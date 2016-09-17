@@ -4,103 +4,18 @@ SavingsItem, and budget
 """
 
 import logging
-import decimal as deci
 # Generate Logging file
 logging.basicConfig(filename='../abucus.log',level = logging.DEBUG)
 
 
-
-class Paycheck(object):
-    """
-    Object for Holding Data Regarding a Paycheck
-    """
-
-    def __init__(self, Type, tax, name, hours = None,
-                 wage = None, numWeeks = 4, salary = None):
-
-
-        # Convert the float values to Decimal Values
-        tax = deci.Decimal(tax)
-        numWeeks = deci.Decimal(numWeeks)
-        self.name = name
-        if Type == 'Hourly':
-            hours = deci.Decimal(hours)
-            wage = deci.Decimal(wage)
-            self.gross = hours * wage * numWeeks
-        elif Type == 'Salary':
-            salary = deci.Decimal(salary)
-            self.gross = salary
-        else:
-            raise ValueError("Type must be Salary or Hourly")
-
-        self.tax = self.gross * tax
-        self.net = self.gross - self.tax
-
-
-
-
-class ExpenseItem(object):
-    """
-    Holds the Data Regarding an Expense item in a budget
-    """
-
-    def __init__(self, name, ammount = None,
-                 percIncome = None, maximum = None):
-
-        self.name = name
-        self.ammount = None
-        self.percIncome = None
-        if maximum is not None:
-            self.maximum = deci.Decimal(maximum)
-        else:
-            self.maximum = maximum
-        # Convert Floats to Decimal Values
-        if ammount != None:
-            ammount = deci.Decimal(ammount)
-            # Calculate the percentage of income by ammount spend
-            self.ammount = ammount
-            
-        elif percIncome != None:
-            percIncome = deci.Decimal(percIncome)
-            # Calculate Ammount by Percentage of income
-            self.percIncome = percIncome
-
-        else:
-            raise ValueError("Ammount or precent of Income must be specified")
-        
-
-
-
-class SavingsItem(object):
-    """
-    Holds the data regarding a savings item in a budget
-    """
-
-    def __init__(self, name, ammount = None, percIncome = None):
-
-        self.name = name
-        self.percIncome = None
-        self.ammount = None
-        
-        if ammount != None:
-            
-            # Calculate the percentage of income by ammount spend
-            self.ammount = deci.Decimal(ammount)
-            
-        elif percIncome != None:
-            
-            # Calculate Ammount by Percentage of income
-            self.percIncome = deci.Decimal(percIncome)
-
-        else:   
-            raise ValueError("Ammount or precent of Income must be specified")
-
-
-
 class Budget(object):
     """
-    The budget class puts together paychecks, Expenses and savings to
-    create syestem of record
+    The budget class puts together paychecks, Expenses and savings to create syestem of record.
+
+    Properties
+    paychecks (Dict): Dictionary containing all paychecks associated with the budget
+    expenses (Dict): Dictionary containing all the expenses that are associated with 
+    Methods
     """
 
     def __init__(self):
