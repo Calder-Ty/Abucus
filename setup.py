@@ -16,7 +16,7 @@ config = {
 
     'install_requires' :['nose'],
 
-    'packages' : ['Abacus'],
+    'packages' : ['Abacus', 'decimal'],
 
     'scripts': [],
 
