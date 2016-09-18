@@ -107,21 +107,20 @@ class Budget(object):
         self.disposable = round(self.disposable, ndigits = 2)
 
 
-    def remove(self, Obj)-> None:
+#    def remove(self, Obj)-> None:
+#
+#        # TODO: Move deletion duties to the individual classes
+#        name = Obj.name
+#        if type(Obj) is BudgetModel.Paycheck:
+#            del self.paychecks[name]
+#        
+#        elif type(Obj) is BudgetModel.ExpenseItem:
+#            del self.expenses[name]
+#        
+#        elif type(Obj) is BudgetModel.SavingsItem:
+#            del self.savings[name]
 
-        # TODO: Move deletion duties to the individual classes
-        name = Obj.name
-        if type(Obj) is BudgetModel.Paycheck:
-            del self.paychecks[name]
-        
-        elif type(Obj) is BudgetModel.ExpenseItem:
-            del self.expenses[name]
-        
-        elif type(Obj) is BudgetModel.SavingsItem:
-            del self.savings[name]
-
-        else:
-            logger.debug("%s type is undefined for the Remove method", name)
-            except TypeError:
-                print("%s type is undefined for the Remove method", name)
-        
+#        else:
+#            logger.debug("%s type is undefined for the Remove method", name)
+#            except TypeError:
+#                print("%s type is undefined for the Remove method", name)        
