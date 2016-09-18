@@ -1,4 +1,5 @@
-import budgetItem
+import Abacus.Models.budgetItem as budgetItem
+import decimal
 
 class Expense(budgetItem.BudgetItem):
     """
@@ -9,20 +10,21 @@ class Expense(budgetItem.BudgetItem):
                  percIncome = None, maximum = None):
 
         self.name = name
+        # FIXME: This is stupid!
         self.ammount = None
         self.percIncome = None
         if maximum is not None:
-            self.maximum = deci.Decimal(maximum)
+            self.maximum = decimal.Decimal(maximum)
         else:
             self.maximum = maximum
         # Convert Floats to Decimal Values
         if ammount != None:
-            ammount = deci.Decimal(ammount)
+            ammount = decimal.Decimal(ammount)
             # Calculate the percentage of income by ammount spend
             self.ammount = ammount
             
         elif percIncome != None:
-            percIncome = deci.Decimal(percIncome)
+            percIncome = decimal.Decimal(percIncome)
             # Calculate Ammount by Percentage of income
             self.percIncome = percIncome
 

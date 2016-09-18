@@ -1,4 +1,5 @@
-import budgetItem
+import Abacus.Models.budgetItem as budgetItem
+import decimal
 
 class Paycheck(budgetItem.BudgetItem):
     """
@@ -10,15 +11,15 @@ class Paycheck(budgetItem.BudgetItem):
 
 
         # Convert the float values to Decimal Values
-        tax = deci.Decimal(tax)
-        numWeeks = deci.Decimal(numWeeks)
+        tax = decimal.Decimal(tax)
+        numWeeks = decimal.Decimal(numWeeks)
         self.name = name
         if Type == 'Hourly':
-            hours = deci.Decimal(hours)
-            wage = deci.Decimal(wage)
+            hours = decimal.Decimal(hours)
+            wage = decimal.Decimal(wage)
             self.gross = hours * wage * numWeeks
         elif Type == 'Salary':
-            salary = deci.Decimal(salary)
+            salary = decimal.Decimal(salary)
             self.gross = salary
         else:
             raise ValueError("Type must be Salary or Hourly")

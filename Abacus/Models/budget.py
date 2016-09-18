@@ -4,9 +4,9 @@ SavingsItem, and budget
 """
 
 import logging
-import expense
-import paycheck
-import savings
+import Abacus.Models.expense as expense
+import Abacus.Models.paycheck as paycheck
+import Abacus.Models.savings as savings
 
 # Generate Logging file
 logging.basicConfig(filename='../abucus.log',level = logging.DEBUG)
@@ -33,7 +33,7 @@ class Budget(object):
         self.net = 0;
         self.disposable = 0;
 
-    def addPaycheck(self, paycheck: Paycheck) -> None:
+    def addPaycheck(self, paycheck: paycheck.Paycheck) -> None:
         """
         Adds paycheck to the paycheck property
 
@@ -43,7 +43,7 @@ class Budget(object):
         self.paychecks[paycheck.name] = paycheck;
         self.update();
 
-    def addExpense(self, expense: Expense)-> None:
+    def addExpense(self, expense: expense.Expense)-> None:
         """
         Adds expense to expense property
 
@@ -60,10 +60,10 @@ class Budget(object):
             self.update();
         else:
             logger.debug("Attempt to add expense when no income specified");
-            except Exception:
-                print("Attempt to add Expense when no income specified");
+            raise Exception("Attempt to add Expense when no income specified");
+                
 
-    def addSavings(self, savings: Savings)-> None:
+    def addSavings(self, savings: savings.Savings)-> None:
         """
         Adds a Savings object to the savings property
 
@@ -80,8 +80,7 @@ class Budget(object):
             self.update();
         else:
             logger.debug("Attempt to add savings when no income specified")
-            except Exception:
-                print("Attemtp to add Expense when no income specified")
+            raise Exception("Attempt to add Expense when no income specified");
 
             
     def update(self)-> None:
