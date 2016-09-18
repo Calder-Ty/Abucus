@@ -4,6 +4,10 @@ SavingsItem, and budget
 """
 
 import logging
+import expense
+import paycheck
+import savings
+
 # Generate Logging file
 logging.basicConfig(filename='../abucus.log',level = logging.DEBUG)
 
@@ -14,8 +18,11 @@ class Budget(object):
 
     Properties
     paychecks (Dict): Dictionary containing all paychecks associated with the budget
-    expenses (Dict): Dictionary containing all the expenses that are associated with 
-    Methods
+    expenses (Dict): Dictionary containing all the expenses that are associated with Budget
+    savings (Dict): Dictionary containing all the savings that are associated with the Budget
+    gross (Decimal): Value that is the Sum of all Income from the paychecks
+    net (Decimal): Value that is the sum of all the Income From the Paychecks minus taxes
+    disposable (Decimal): Value that is equal to all of the net income not assigned to an expense or savings
     """
 
     def __init__(self):
@@ -26,20 +33,25 @@ class Budget(object):
         self.net = 0;
         self.disposable = 0;
 
-    def addPaycheck(self, Type, tax, name, hours = None,
-                 wage = None, numWeeks = 4, salary = None):
+    def addPaycheck(self, paycheck: Paycheck) -> None:
+        """
+        Adds paycheck to the paycheck property
 
-        paycheck = Paycheck(Type, tax, name, hours = hours,
-                 wage = wage, numWeeks = numWeeks, salary = salary);
+        @params
+        paycheck: an object of Type Model.Paycheck
+        """
         self.paychecks[paycheck.name] = paycheck;
         self.update();
 
-    def addExpense(self,  name, ammount = None,
-                 percIncome = None, maximum = None):
-        
+    def addExpense(self, expense: Expense)-> None:
+        """
+        Adds expense to expense property
+
+        @params
+        expense: and object of type Model.Expense
+        """
         if len(self.paychecks) >= 0:
-            expense = ExpenseItem( name, ammount = ammount,
-                 percIncome = percIncome, maximum = maximum);
+
             if expense.percIncome is None:
                 expense.percIncome = expense.ammount / self.gross;
             else:
@@ -48,11 +60,18 @@ class Budget(object):
             self.update();
         else:
             logger.debug("Attempt to add expense when no income specified");
+            except Exception:
+                print("Attempt to add Expense when no income specified");
 
-    def addSavings(self, name, ammount = None, percIncome = None):
-        
+    def addSavings(self, savings: Savings)-> None:
+        """
+        Adds a Savings object to the savings property
+
+        @param
+        savings: and object of type Model.Savings
+        """
         if len(self.paychecks) >= 0:
-            saving = SavingsItem(name, ammount = ammount, percIncome = percIncome);      
+
             if saving.percIncome is None:
                 saving.percIncome = saving.ammount / self.gross;
             else:
@@ -61,9 +80,14 @@ class Budget(object):
             self.update();
         else:
             logger.debug("Attempt to add savings when no income specified")
+            except Exception:
+                print("Attemtp to add Expense when no income specified")
 
             
-    def update(self):
+    def update(self)-> None:
+        """
+        updates The budgets records to keep track of Gross, Net, and other values
+        """
         # TODO: Update calculations Possibly push part of these out to the seperate methods
         self.gross = 0
         self.net = 0
@@ -83,7 +107,9 @@ class Budget(object):
         self.disposable = round(self.disposable, ndigits = 2)
 
 
-    def remove(self, Obj):
+    def remove(self, Obj)-> None:
+
+        # TODO: Move deletion duties to the individual classes
         name = Obj.name
         if type(Obj) is BudgetModel.Paycheck:
             del self.paychecks[name]
@@ -96,4 +122,6 @@ class Budget(object):
 
         else:
             logger.debug("%s type is undefined for the Remove method", name)
+            except TypeError:
+                print("%s type is undefined for the Remove method", name)
         
