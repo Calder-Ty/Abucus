@@ -1,5 +1,6 @@
+import budgetItem
 
-class Paycheck(object):
+class Paycheck(budgetItem.BudgetItem):
     """
     Object for Holding Data Regarding a Paycheck
     """

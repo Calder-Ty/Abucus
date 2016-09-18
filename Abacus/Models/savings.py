@@ -1,4 +1,6 @@
-class Savings(object):
+import budgetItem
+
+class Savings(budgetItem.BudgetItem):
     """
     Holds the data regarding a savings item in a budget
     """

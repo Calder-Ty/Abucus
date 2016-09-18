@@ -1,4 +1,6 @@
-class Expense(object):
+import budgetItem
+
+class Expense(budgetItem.BudgetItem):
     """
     Holds the Data Regarding an Expense item in a budget
     """
