@@ -1,4 +1,4 @@
-class SavingsItem(object):
+class Savings(object):
     """
     Holds the data regarding a savings item in a budget
     """

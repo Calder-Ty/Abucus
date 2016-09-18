@@ -1,4 +1,4 @@
-class ExpenseItem(object):
+class Expense(object):
     """
     Holds the Data Regarding an Expense item in a budget
     """
