@@ -6,6 +6,8 @@ class Paycheck(budgetItem.BudgetItem):
     """
     Object for Holding Data Regarding a Paycheck
     """
+    ### CLASS ATTRIBUTES ###
+    _ALLOWED_TYPES = ['Salary', 'Hourly']
 
     ### MAGIC METHODS ###
     def __str__(self):
@@ -70,4 +72,6 @@ class Paycheck(budgetItem.BudgetItem):
     
     @Type.setter
     def Type(self, Type):
+        if Type not in Paycheck._ALLOWED_TYPES:
+            raise Exception("This Type of Paycheck is not allowed")
         self._type = Type

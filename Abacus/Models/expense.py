@@ -1,5 +1,6 @@
 import Abacus.Models.budgetItem as budgetItem
 import decimal
+decimal.getcontext().prec = 5
 
 class Expense(budgetItem.BudgetItem):
     """
