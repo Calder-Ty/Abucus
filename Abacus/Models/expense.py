@@ -5,30 +5,26 @@ decimal.getcontext().prec = 5
 class Expense(budgetItem.BudgetItem):
     """
     Holds the Data Regarding an Expense item in a budget
+
+    @Properties:
+    Maximum (decimal.Decimal): 
     """
+    ### MAGIC METHODS ###
+    def __init__(self, name: str, ammount: float = None,
+                 percIncome: float = None, maximum: float = None):
+        super().__init__(name,ammount,percIncome);
+        self.Maximum = maximum;
 
-    def __init__(self, name, ammount = None,
-                 percIncome = None, maximum = None):
+    ### GETTERS AND SETTERS ###
 
-        self.name = name
-        # FIXME: This is stupid!
-        self.ammount = None
-        self.percIncome = None
-        if maximum is not None:
-            self.maximum = decimal.Decimal(maximum)
+    @property
+    def Maximum(self):
+        return _maximum;
+    
+    @Maximum.setter
+    def Maximum(self, Maximum):
+        if Maximum is not None:
+            self._maximum = decimal.Decimal(Maximum);
         else:
-            self.maximum = maximum
-        # Convert Floats to Decimal Values
-        if ammount != None:
-            ammount = decimal.Decimal(ammount)
-            # Calculate the percentage of income by ammount spend
-            self.ammount = ammount
-            
-        elif percIncome != None:
-            percIncome = decimal.Decimal(percIncome)
-            # Calculate Ammount by Percentage of income
-            self.percIncome = percIncome
-
-        else:
-            raise ValueError("Ammount or precent of Income must be specified")
+            self._maximum = Maximum;
         

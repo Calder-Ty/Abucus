@@ -1,8 +1,7 @@
-import Abacus.Models.budgetItem as budgetItem
 import decimal
 decimal.getcontext().prec = 5
 
-class Paycheck(budgetItem.BudgetItem):
+class Paycheck(object):
     """
     Object for Holding Data Regarding a Paycheck
     """

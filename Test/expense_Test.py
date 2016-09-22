@@ -12,3 +12,8 @@ def ammountTest():
     assert_equal(Groceries.name, "Groceries");
     assert_equal(Groceries.ammount, decimal.Decimal(100));
 
+def printTest():
+    Groceries = BudgetModel.ExpenseItem("Groceries", ammount = 100);
+    Tithing = Expense("Tithing", percIncome = .1);
+    assert_equal(print(Groceries), "Groceries: $100");
+    assert_equal(print(Tithing), "Tithing: 10 percent of income");
