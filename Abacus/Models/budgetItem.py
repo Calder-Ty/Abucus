@@ -10,10 +10,11 @@ class BudgetItem(ABC):
     
     ### MAGIC METHODS ###
     def __str__(self):
-        if Ammount is None:
-            outputString = "%s: %f percent of income" %(self.Name, self.PercIncome * 100);
+        if self.Ammount is None:
+            outputString = "%s: %1.2f percent of income" %(self.Name, self.PercIncome * 100);
         else:
-            outputString ="%s: $%1.2f" %(self.Name, self.Ammount)
+            outputString ="%s: $%1.2f" %(self.Name, self.Ammount);
+        return outputString;
 
     def __init__(self, name, ammount, percIncome):
         self.Name = name;
@@ -24,26 +25,26 @@ class BudgetItem(ABC):
     # I don't know if we realy need the getters/setters for Name
     @property
     def Name(self):
-        return _name;
+        return self._name;
     
     @Name.setter
-    def Name(self, Name):
-        self._name = Name;
+    def Name(self, name):
+        self._name = name;
     
     @property
     def Ammount(self):
-        return _ammount;
+        return self._ammount;
     
     @Ammount.setter
-    def Ammount(self, Ammount):
-        if Ammount is not None:
-            self.Ammount = decimal.Decimal(Ammount);
+    def Ammount(self, ammount):
+        if ammount is not None:
+            self._ammount = decimal.Decimal(ammount);
         else:
-            self.Ammount = Ammount
+            self._ammount = ammount;
     
     @property
     def PercIncome(self):
-        return _percIncome;
+        return self._percIncome;
     
     @PercIncome.setter
     def PercIncome(self, PercIncome):
