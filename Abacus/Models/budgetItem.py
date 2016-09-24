@@ -63,4 +63,4 @@ class BudgetItem(ABC):
         self.PercIncome = self.Ammount / Income
     
     def drop(self):
-        self.__del__();
+        del self;
