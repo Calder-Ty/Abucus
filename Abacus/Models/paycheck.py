@@ -70,9 +70,11 @@ class Paycheck(object):
         return self._type
     
     @Type.setter
-    def Type(self, Type):
+    def Type(self, Type): 
         if Type in Paycheck._ALLOWED_TYPES or Type is None:
             self._type = Type
         else:
             raise Exception("This Type of Paycheck is not allowed")
-        
+
+    def drop(self):
+        del self;
