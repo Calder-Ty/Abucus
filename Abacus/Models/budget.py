@@ -81,16 +81,16 @@ class Budget(object):
         if len(self.Paychecks) >= 0:
             
             # Set expense properties that need an Income
-            if expense.percIncome is None:
-                exp.caclulate_percent_from_ammount();
+            if exp.PercIncome is None:
+                exp.calculate_percent_from_ammount(self.Gross);
             else:
-                exp.calculate_ammount_from_percent();
+                exp.calculate_ammount_from_percent(self.Gross);
             
             # We want to make sure that the expense is not
             # Overwriting another one, so make sure it
             # Doesnt already exist in the Expenses list
             if exp.Name not in self.Expenses.keys():
-                self.Expenses[expense.Name] = expense;
+                self.Expenses[exp.Name] = exp;
                 self.update();
             else:
                 raise Exception("Attempt to put an expense into the budget\
@@ -140,10 +140,10 @@ class Budget(object):
 
         self.Disposable = self.Net
         for i in self.Expenses:
-            self.Disposable -= self.Expenses[i].ammount;
+            self.Disposable -= self.Expenses[i].Ammount;
 
         for i in self.SavingsDict:
-            self.Disposable -= self.SavingsDict[i].ammount;
+            self.Disposable -= self.SavingsDict[i].Ammount;
 
 #    def remove(self, Obj)-> None:
 #
