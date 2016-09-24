@@ -55,5 +55,11 @@ class BudgetItem(ABC):
 
     ### CLASS METHODS ###
     # TODO: RENAME THIS METHOD:
+    def calculate_ammount_from_percent(self, Income: float)->None:
+        self.Ammount = Income * self.PercIncome;
+
+    def calculate_percent_from_ammount(self, Income: float)->None:
+        self.PercIncome = self.Ammount / Income
+    
     def drop(self):
         self.__del__();
