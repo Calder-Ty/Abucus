@@ -4,12 +4,14 @@ SavingsItem, and budget
 """
 
 import logging
+import decimal
 import Abacus.Models.expense as expense
 import Abacus.Models.paycheck as paycheck
 import Abacus.Models.savings as savings
 
 # Generate Logging file
-logging.basicConfig(filename='../abucus.log',level = logging.DEBUG)
+logging.basicConfig(filename='../abucus.log',level = logging.DEBUG);
+decimal.getcontext().prec = 5;
 
 
 class Budget(object):
@@ -24,7 +26,7 @@ class Budget(object):
     Net (Decimal): Value that is the sum of all the Income From the Paychecks minus taxes
     Disposable (Decimal): Value that is equal to all of the Net income not assigned to an expense or savings
     """
-
+    ### MAGIC METHODS ###
     def __init__(self):
         self.Paychecks = {};
         self.Expenses = {};
@@ -32,7 +34,33 @@ class Budget(object):
         self.Gross = 0;
         self.Net = 0;
         self.Disposable = 0;
+    
+    ### PROPERTIES METHODS ###
+    @property
+    def Gross(self):
+        return self._gross;
+    
+    @Gross.setter
+    def Gross(self, Gross):
+        self._gross = decimal.Decimal(Gross);
 
+    @property
+    def Net(self):
+        return self._net;
+
+    @Net.setter
+    def Net(self, Net):
+        self._net = decimal.Decimal(Net);
+
+    @property
+    def Disposable(self):
+        return self._disposable;
+    
+    @Disposable.setter
+    def Disposable(self, Disposable):
+        self._disposable = decimal.Decimal(Disposable);
+
+    ### CLASS METHODS ###
     def addPaycheck(self, pay: paycheck.Paycheck) -> None:
         """
         Adds paycheck to the paycheck property
@@ -104,23 +132,18 @@ class Budget(object):
         updates The budgets records to keep track of Gross, Net, and other values
         """
         # TODO: Update calculations Possibly push part of these out to the seperate methods
-        self.Gross = 0
-        self.Net = 0
+        self.Gross = 0;
+        self.Net = 0;
         for i in self.Paychecks:
-            self.Gross += self.Paychecks[i].Gross
-            self.Net += self.Paychecks[i].Net
+            self.Gross += self.Paychecks[i].Gross;
+            self.Net += self.Paychecks[i].Net;
 
         self.Disposable = self.Net
         for i in self.Expenses:
-            self.Disposable -= self.Expenses[i].ammount
+            self.Disposable -= self.Expenses[i].ammount;
 
         for i in self.SavingsDict:
-            self.Disposable -= self.SavingsDict[i].ammount
-
-        self.Net = round(self.Net, ndigits = 2)
-        self.Gross = round(self.Gross, ndigits = 2)
-        self.Disposable = round(self.Disposable, ndigits = 2)
-
+            self.Disposable -= self.SavingsDict[i].ammount;
 
 #    def remove(self, Obj)-> None:
 #
