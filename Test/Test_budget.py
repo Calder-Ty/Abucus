@@ -36,6 +36,6 @@ class TestBudgetMethods(unittest.TestCase):
         self.bud.addPaycheck(pay);
         self.bud.addExpense(exp);
         self.assertEqual(self.bud.Disposable, decimal.Decimal(3400));
-        self.assertEqual(self.bud.Expenses["Groceries"], expense);
+        self.assertEqual(self.bud.Expenses["Groceries"], exp);
         self.bud.Paychecks['Emperitas'].drop();
         self.bud.Expenses["Groceries"].drop();
